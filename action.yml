@@ -1,0 +1,20 @@
+name: Node CI
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm ci
+      shell: bash
+    - run: npm run build --if-present
+      shell: bash
+    - run: npm run lint --if-present
+      shell: bash
+    - run: npm run test:cov --if-present
+      shell: bash
+
+branding:
+  icon: 'git-branch'
+  color: 'blue'
