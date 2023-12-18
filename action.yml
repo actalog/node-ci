@@ -1,5 +1,11 @@
 name: Node CI
 
+inputs:
+  sonar-token:
+    required: false
+  sonar-host-url:
+    required: false
+
 runs:
   using: 'composite'
   steps:
@@ -11,6 +17,11 @@ runs:
       shell: bash
     - run: npm run build --if-present
       shell: bash
+    - uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: build
+        if-no-files-found: ignore    
     - run: npm run lint --if-present
       shell: bash
     - run: npm run test:cov --if-present
@@ -20,6 +31,13 @@ runs:
         name: coverage
         path: coverage
         if-no-files-found: ignore
+    - name: SonarQube
+      if: ${{ inputs.sonar-token || inputs.sonar-host-url }}
+      uses: sonarsource/sonarqube-scan-action@master
+      continue-on-error: true
+      env:
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+        SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
 
 branding:
   icon: 'git-branch'
