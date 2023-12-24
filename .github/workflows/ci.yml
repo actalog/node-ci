@@ -14,5 +14,8 @@ jobs:
         with:
           name: action.yml
           path: action
+      - uses: actions/checkout@v4
+        with:
+          repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
       - run: ls -R
