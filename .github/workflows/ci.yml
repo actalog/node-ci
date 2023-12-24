@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: action.yml
+          path: action
+      - uses: actions/download-artifact@v4
+      - run: ls -R
