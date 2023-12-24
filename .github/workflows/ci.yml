@@ -18,4 +18,6 @@ jobs:
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
+        with:
+          repository: ${{ github.repository }}
       - run: ls -R
