@@ -19,5 +19,5 @@ jobs:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
         with:
-          repository: ${{ github.repository }}
+          repository: gabrielrufino/node-ci
       - run: ls -R
