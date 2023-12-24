@@ -18,4 +18,4 @@ jobs:
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
-      - uses: ./action/action.yml
+      - uses: ./action/
