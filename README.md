@@ -1,5 +1,7 @@
 # Node CI
 
+Continuous Integration for Node.js projects
+
 ## Getting started
 
 ```yml
