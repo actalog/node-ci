@@ -1,6 +1,9 @@
 name: Node CI
 
 inputs:
+  node-version:
+    required: false
+    default: 20
   sonar-token:
     required: false
   sonar-host-url:
@@ -11,7 +14,7 @@ runs:
   steps:
     - uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: ${{ inputs.node-version }}
         cache: 'npm'
     - run: npm ci
       shell: bash
