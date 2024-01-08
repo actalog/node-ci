@@ -27,6 +27,8 @@ runs:
         if-no-files-found: ignore    
     - run: npm run lint --if-present
       shell: bash
+    - run: npm test --if-present
+      shell: bash
     - run: npm run test:cov --if-present
       shell: bash
     - uses: actions/upload-artifact@v4
