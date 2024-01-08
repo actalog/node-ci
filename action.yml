@@ -42,6 +42,14 @@ runs:
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
         SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
+    - if: ${{ github.event_name == 'pull_request' }}
+      uses: peter-evans/create-or-update-comment@v3
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          # Node CI
+
+          Node CI completed!
 
 branding:
   icon: 'git-branch'
