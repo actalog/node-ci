@@ -50,6 +50,7 @@ runs:
           # Node CI
 
           Node CI completed!
+      continue-on-error: true
 
 branding:
   icon: 'git-branch'
