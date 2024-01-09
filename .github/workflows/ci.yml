@@ -20,3 +20,7 @@ jobs:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
       - uses: ./action/
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
