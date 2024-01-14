@@ -29,6 +29,8 @@ runs:
       shell: bash
     - run: npm test --if-present
       shell: bash
+    - run: npm run test:e2e --if-present
+      shell: bash
     - run: npm run test:cov --if-present
       shell: bash
     - uses: actions/upload-artifact@v4
