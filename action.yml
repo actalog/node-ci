@@ -29,7 +29,8 @@ runs:
     - id: lint
       run: npm run lint --if-present
       shell: bash
-    - run: npm test --if-present
+    - id: test
+      run: npm test --if-present
       shell: bash
     - run: npm run test:e2e --if-present
       shell: bash
@@ -55,14 +56,13 @@ runs:
 
           Node CI completed!
 
-          ---
-
           ## Steps
 
           | Step      | Status                     |
           | --------- | -------------------------- |
           | **Build** | ${{ steps.build.outcome }} |
           | **Lint**  | ${{ steps.lint.outcome }}  |
+          | **Test**  | ${{ steps.test.outcome }}  |
       continue-on-error: true
 
 branding:
