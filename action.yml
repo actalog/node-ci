@@ -59,10 +59,10 @@ runs:
 
           ## Steps
 
-          | Step  | Outcome                    |
-          | ----- | -------------------------- |
-          | Build | ${{ steps.build.outcome }} |
-          | Lint  | ${{ steps.lint.outcome }}  |
+          | Step      | Status                     |
+          | --------- | -------------------------- |
+          | **Build** | ${{ steps.build.outcome }} |
+          | **Lint**  | ${{ steps.lint.outcome }}  |
       continue-on-error: true
 
 branding:
