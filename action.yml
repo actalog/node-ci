@@ -26,7 +26,8 @@ runs:
         name: build
         path: build
         if-no-files-found: ignore    
-    - run: npm run lint --if-present
+    - id: lint
+      run: npm run lint --if-present
       shell: bash
     - run: npm test --if-present
       shell: bash
@@ -56,7 +57,12 @@ runs:
 
           ---
 
-          Build: ${{ steps.build.outcome }}
+          ## Steps
+
+          | Step  | Outcome                    |
+          | ----- | -------------------------- |
+          | Build | ${{ steps.build.outcome }} |
+          | Lint  | ${{ steps.lint.outcome }}  |
       continue-on-error: true
 
 branding:
