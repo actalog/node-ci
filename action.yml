@@ -16,7 +16,7 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm ci || npm install
       shell: bash
     - run: npm run build --if-present
       shell: bash
