@@ -18,7 +18,8 @@ runs:
         cache: 'npm'
     - run: npm ci || npm install
       shell: bash
-    - run: npm run build --if-present
+    - id: build
+      run: npm run build --if-present
       shell: bash
     - uses: actions/upload-artifact@v4
       with:
@@ -52,6 +53,10 @@ runs:
           # Node CI
 
           Node CI completed!
+
+          ---
+
+          Build: ${{ steps.build.outcome }}
       continue-on-error: true
 
 branding:
