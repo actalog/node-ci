@@ -15,8 +15,8 @@ jobs:
         with:
           name: action
           path: action.yml
-  tests:
-    name: Tests
+  test:
+    name: 'Test: default usage'
     runs-on: ubuntu-latest
     needs:
       - upload-action
@@ -26,8 +26,8 @@ jobs:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
       - uses: ./action/
-  tests-using-except:
-    name: Tests using 'except'
+  test-using-except:
+    name: 'Test: using 'except''
     runs-on: ubuntu-latest
     needs:
       - upload-action
