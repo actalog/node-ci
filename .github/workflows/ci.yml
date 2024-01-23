@@ -27,7 +27,7 @@ jobs:
       - uses: actions/download-artifact@v4
       - uses: ./action/
   test-using-except:
-    name: 'Test: using 'except''
+    name: "Test: using 'except'"
     runs-on: ubuntu-latest
     needs:
       - upload-action
