@@ -25,13 +25,6 @@ runs:
       if: ${{ !contains(inputs.except, 'build') }}
       run: npm run build --if-present
       shell: bash
-    - uses: actions/upload-artifact@v4
-      if: ${{ !contains(inputs.except, 'build') }}
-      with:
-        name: build
-        path: build
-        if-no-files-found: ignore
-      continue-on-error: true
     - id: lint
       if: ${{ !contains(inputs.except, 'lint') }}
       run: npm run lint --if-present
@@ -46,19 +39,20 @@ runs:
     - run: npm run test:cov --if-present
       if: ${{ !contains(inputs.except, 'test') }}
       shell: bash
-    - uses: actions/upload-artifact@v4
-      if: ${{ !contains(inputs.except, 'test') }}
-      with:
-        name: coverage
-        path: coverage
-        if-no-files-found: ignore
-      continue-on-error: true
     - if: ${{ inputs.sonar-token || inputs.sonar-host-url }}
       uses: sonarsource/sonarqube-scan-action@master
       continue-on-error: true
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
         SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
+    - uses: actions/upload-artifact@v4
+      with:
+        name: node-ci
+        path: |
+          dist
+          coverage
+        if-no-files-found: ignore
+      continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v3
       with:
