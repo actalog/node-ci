@@ -58,6 +58,7 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "::set-output name=size::$size"
+      shell: bash
     - if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v3
       with:
