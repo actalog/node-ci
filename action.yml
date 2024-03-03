@@ -53,7 +53,8 @@ runs:
           coverage
         if-no-files-found: ignore
       continue-on-error: true
-    - id: node-modules-size
+    - if: ${{ always() && github.event_name == 'pull_request' }}
+      id: node-modules-size
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "::set-output name=size::$size"
