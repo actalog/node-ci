@@ -54,6 +54,12 @@ runs:
         if-no-files-found: ignore
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
+      id: node-modules-size
+      run: |
+        size=$(du -sh node_modules | cut -f1)
+        echo "size=$size" >> $GITHUB_OUTPUT
+      shell: bash
+    - if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v3
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -69,6 +75,10 @@ runs:
           | **Build** | ${{ steps.build.outcome }} |
           | **Lint**  | ${{ steps.lint.outcome }}  |
           | **Test**  | ${{ steps.test.outcome }}  |
+
+          ## Statistics
+
+          **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
       continue-on-error: true
 
 branding:
