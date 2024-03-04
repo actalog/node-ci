@@ -19,11 +19,16 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'npm'
+    - id: scripts
+      run: |
+        scripts=$(cat package.json | jq -r '.scripts | keys')
+        echo "scripts=$scripts" >> $GITHUB_OUTPUT
+      shell: bash
     - run: npm ci || npm install
       shell: bash
     - id: build
-      if: ${{ !contains(inputs.except, 'build') }}
-      run: npm run build --if-present
+      if: ${{ contains(steps.scripts.outputs.scripts, 'build') && !contains(inputs.except, 'build') }}
+      run: npm run build
       shell: bash
     - id: lint
       if: ${{ !contains(inputs.except, 'lint') }}
