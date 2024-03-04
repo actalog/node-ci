@@ -21,7 +21,7 @@ runs:
         cache: 'npm'
     - id: scripts
       run: |
-        scripts=$(cat package.json | jq -r '.scripts | keys')
+        scripts=$(cat package.json | jq -c '.scripts | keys')
         echo "scripts=$scripts" >> $GITHUB_OUTPUT
       shell: bash
     - run: npm ci || npm install
