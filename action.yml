@@ -88,7 +88,7 @@ runs:
           ## Environment
 
           * **Runner OS:** ${{ runner.os }}
-          * **Runner Arch**: ${{ runner.arch }}
+          * **Runner Arch:** ${{ runner.arch }}
           * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
 
