@@ -84,6 +84,10 @@ runs:
           ## Statistics
 
           **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+
+          ## Environment
+
+          **Runner:** {{ $RUNNER_NAME }}
       continue-on-error: true
 
 branding:
