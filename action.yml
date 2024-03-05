@@ -87,8 +87,9 @@ runs:
 
           ## Environment
 
-          **Runner:** ${{ runner.name }}
-          **Node version:** ${{ inputs.node-version }}
+          * **Runner OS:** ${{ runner.os }}
+          * **Runner Arch**: ${{ runner.arch }}
+          * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
 
 branding:
