@@ -87,7 +87,7 @@ runs:
 
           ## Environment
 
-          **Runner:** {{ $RUNNER_NAME }}
+          **Runner:** {{ vars.RUNNER_NAME }}
           **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
 
