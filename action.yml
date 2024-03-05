@@ -83,7 +83,7 @@ runs:
 
           ## Statistics
 
-          **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+          * **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
 
           ## Environment
 
