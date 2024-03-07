@@ -83,7 +83,13 @@ runs:
 
           ## Statistics
 
-          **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+          * **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+
+          ## Environment
+
+          * **Runner OS:** ${{ runner.os }}
+          * **Runner Arch:** ${{ runner.arch }}
+          * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
 
 branding:
