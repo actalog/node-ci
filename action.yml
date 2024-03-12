@@ -93,7 +93,9 @@ runs:
 
           ## Outdated packages
 
+          ```
           ${{ steps.outdated-packages.outputs.output }}
+          ```
 
           ## Environment
 
