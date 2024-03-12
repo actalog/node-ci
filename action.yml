@@ -64,7 +64,7 @@ runs:
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
         outdated=$(npm outdated)
-        echo "outdated=$outdated" >> $GITHUB_OUTPUT
+        echo "outdated=$outdated<<EOF" >> $GITHUB_OUTPUT
         echo 'EOF' >> $GITHUB_OUTPUT
       shell: bash
       continue-on-error: true
