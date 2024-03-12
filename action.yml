@@ -50,12 +50,6 @@ runs:
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
         SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
-    - if: ${{ always() && github.event_name == 'pull_request' }}
-      id: outdated-packages
-      run: |
-        output=$(npm outdated)
-        echo "output=$output" >> $GITHUB_OUTPUT
-      shell: bash
     - uses: actions/upload-artifact@v4
       with:
         name: node-ci
@@ -65,10 +59,12 @@ runs:
         if-no-files-found: ignore
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
-      id: node-modules-size
+      id: info
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
+        outdated=$(npm outdated)
+        echo "outdated=$outdated" >> $GITHUB_OUTPUT
       shell: bash
     - if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v3
@@ -89,12 +85,12 @@ runs:
 
           ## Statistics
 
-          * **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+          * **node_modules size:** ${{ steps.info.outputs.size }}
 
           ## Outdated packages
 
           ```
-          ${{ steps.outdated-packages.outputs.output }}
+          ${{ steps.info.outputs.outdated }}
           ```
 
           ## Environment
