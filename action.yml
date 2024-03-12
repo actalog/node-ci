@@ -50,6 +50,12 @@ runs:
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
         SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
+    - if: ${{ always() && github.event_name == 'pull_request' }}
+      id: outdated-packages
+      run: |
+        output=$(npm outdated)
+        echo "output=$output" >> $GITHUB_OUTPUT
+      shell: bash
     - uses: actions/upload-artifact@v4
       with:
         name: node-ci
@@ -84,6 +90,10 @@ runs:
           ## Statistics
 
           * **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+
+          ## Outdated packages
+
+          ${{ steps.outdated-packages.outputs.output }}
 
           ## Environment
 
