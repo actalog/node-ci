@@ -42,7 +42,7 @@ runs:
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:e2e') && !contains(inputs.except, 'test:e2e') }}
       shell: bash
     - run: npm run test:cov
-      if: ${{ contains(steps.scripts.outputs.scripts, 'test') && !contains(inputs.except, 'test') }}
+      if: ${{ contains(steps.scripts.outputs.scripts, 'test:cov') && !contains(inputs.except, 'test') }}
       shell: bash
     - if: ${{ inputs.sonar-token || inputs.sonar-host-url }}
       uses: sonarsource/sonarqube-scan-action@master
