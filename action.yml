@@ -59,11 +59,17 @@ runs:
         if-no-files-found: ignore
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
-      id: node-modules-size
+      id: info
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
+        {
+          echo 'outdated<<EOF'
+          npm outdated || echo "No outdated"
+          echo EOF
+        } >> "$GITHUB_OUTPUT"
       shell: bash
+      continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v3
       with:
@@ -83,7 +89,13 @@ runs:
 
           ## Statistics
 
-          * **node_modules size:** ${{ steps.node-modules-size.outputs.size }}
+          * **node_modules size:** ${{ steps.info.outputs.size }}
+
+          ## Outdated packages
+
+          ```
+          ${{ steps.info.outputs.outdated || 'No outdated' }}
+          ```
 
           ## Environment
 
