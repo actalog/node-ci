@@ -63,7 +63,8 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
-        outdated="A$(npm outdated)B\nC\nD"
+        cat package.json
+        outdated="A$(cat package.json)B\nC\nD"
         echo "outdated=$outdated" >> $GITHUB_OUTPUT
         echo $outdated
       shell: bash
