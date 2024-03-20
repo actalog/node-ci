@@ -63,9 +63,11 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
-        cat package.json
-        outdated="A$(cat package.json)B\nC\nD"
-        echo "outdated=$outdated" >> $GITHUB_OUTPUT
+        {
+          echo 'outdated<<EOF'
+          cat package.json
+          echo EOF
+        } >> "$GITHUB_OUTPUT"
         echo $outdated
       shell: bash
       continue-on-error: true
