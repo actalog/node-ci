@@ -65,10 +65,9 @@ runs:
         echo "size=$size" >> $GITHUB_OUTPUT
         {
           echo 'outdated<<EOF'
-          cat package.json
+          npm outdated || echo "No outdated"
           echo EOF
         } >> "$GITHUB_OUTPUT"
-        echo $outdated
       shell: bash
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
