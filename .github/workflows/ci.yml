@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: gabrielrufino/node-template
+          repository: gabrielrufino/cube
       - uses: actions/download-artifact@v4
       - uses: ./action/
   test-using-except:
