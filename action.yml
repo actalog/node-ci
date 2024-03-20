@@ -63,12 +63,9 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
-        {
-          echo 'outdated<<EOF'
-          npm outdated
-          echo EOF
-        } >> "$GITHUB_OUTPUT"
-        echo $GITHUB_OUTPUT
+        outdated="$(npm outdated)"
+        echo "outdated=$outdated" >> $GITHUB_OUTPUT
+        echo $outdated
       shell: bash
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
