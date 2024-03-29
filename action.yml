@@ -71,7 +71,7 @@ runs:
       shell: bash
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
-      uses: peter-evans/create-or-update-comment@v3
+      uses: peter-evans/create-or-update-comment@v4
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
