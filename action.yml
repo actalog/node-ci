@@ -65,7 +65,7 @@ runs:
         echo "size=$size" >> $GITHUB_OUTPUT
         {
           echo 'outdated<<EOF'
-          npm outdated || echo "No outdated"
+          npm outdated
           echo EOF
         } >> "$GITHUB_OUTPUT"
       shell: bash
