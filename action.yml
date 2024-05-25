@@ -9,8 +9,6 @@ inputs:
     default: 20
   sonar-token:
     required: false
-  sonar-host-url:
-    required: false
 
 runs:
   using: 'composite'
@@ -44,12 +42,12 @@ runs:
     - run: npm run test:cov
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:cov') && !contains(inputs.except, 'test') }}
       shell: bash
-    - if: ${{ inputs.sonar-token || inputs.sonar-host-url }}
+    - if: ${{ inputs.sonar-token }}
       uses: sonarsource/sonarqube-scan-action@master
       continue-on-error: true
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
-        SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v4
       with:
         name: node-ci
