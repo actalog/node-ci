@@ -4,6 +4,8 @@ inputs:
   except:
     required: false
     default: ''
+  github-token:
+    required: false
   node-version:
     required: false
     default: 20
@@ -42,12 +44,12 @@ runs:
     - run: npm run test:cov
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:cov') && !contains(inputs.except, 'test') }}
       shell: bash
-    - if: ${{ inputs.sonar-token }}
+    - if: ${{ inputs.sonar-token && inputs.github-token }}
       uses: sonarsource/sonarqube-scan-action@master
       continue-on-error: true
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
     - uses: actions/upload-artifact@v4
       with:
         name: node-ci
