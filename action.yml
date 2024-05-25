@@ -45,7 +45,7 @@ runs:
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:cov') && !contains(inputs.except, 'test') }}
       shell: bash
     - if: ${{ inputs.sonar-token && inputs.github-token }}
-      uses: sonarsource/sonarqube-scan-action@master
+      uses: SonarSource/sonarcloud-github-action@master
       continue-on-error: true
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
