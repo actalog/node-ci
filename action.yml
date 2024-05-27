@@ -103,7 +103,3 @@ runs:
           * **Runner Arch:** ${{ runner.arch }}
           * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
-
-branding:
-  icon: 'git-branch'
-  color: 'blue'
