@@ -94,7 +94,7 @@ runs:
           ## Outdated packages
 
           ```
-          ${{ steps.info.outputs.outdated == '' && 'No outdated packages' || steps.info.outputs.outdated }}
+          ${{ steps.info.outputs.outdated || 'No outdated packages' }}
           ```
 
           ## Environment
