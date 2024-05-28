@@ -63,11 +63,12 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
+
         {
           echo 'outdated<<EOF'
-          npm outdated
-          echo EOF
-        } >> "$GITHUB_OUTPUT"
+          echo "$(npm outdated)"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
       shell: bash
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
@@ -94,7 +95,7 @@ runs:
           ## Outdated packages
 
           ```
-          ${{ steps.info.outputs.outdated == '' && 'No outdated packages' || steps.info.outputs.outdated }}
+          ${{ steps.info.outputs.outdated || 'No outdated packages' }}
           ```
 
           ## Environment
@@ -103,7 +104,3 @@ runs:
           * **Runner Arch:** ${{ runner.arch }}
           * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
-
-branding:
-  icon: 'git-branch'
-  color: 'blue'
