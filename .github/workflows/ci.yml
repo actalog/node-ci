@@ -39,8 +39,8 @@ jobs:
       - uses: ./action/
         with:
           except: build
-  test-in-different-runners:
-    name: 'Test: different runners'
+  test-in-different-operating-systems:
+    name: 'Test: different operating systems'
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]

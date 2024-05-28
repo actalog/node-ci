@@ -4,12 +4,12 @@ inputs:
   except:
     required: false
     default: ''
+  github-token:
+    required: false
   node-version:
     required: false
     default: 20
   sonar-token:
-    required: false
-  sonar-host-url:
     required: false
 
 runs:
@@ -44,12 +44,12 @@ runs:
     - run: npm run test:cov
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:cov') && !contains(inputs.except, 'test') }}
       shell: bash
-    - if: ${{ inputs.sonar-token || inputs.sonar-host-url }}
-      uses: sonarsource/sonarqube-scan-action@master
+    - if: ${{ inputs.sonar-token && inputs.github-token }}
+      uses: SonarSource/sonarcloud-github-action@master
       continue-on-error: true
       env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
-        SONAR_HOST_URL: ${{ inputs.sonar-host-url }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
     - uses: actions/upload-artifact@v4
       with:
         name: node-ci
@@ -63,11 +63,12 @@ runs:
       run: |
         size=$(du -sh node_modules | cut -f1)
         echo "size=$size" >> $GITHUB_OUTPUT
+
         {
           echo 'outdated<<EOF'
-          npm outdated
-          echo EOF
-        } >> "$GITHUB_OUTPUT"
+          echo "$(npm outdated)"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
       shell: bash
       continue-on-error: true
     - if: ${{ always() && github.event_name == 'pull_request' }}
@@ -94,7 +95,7 @@ runs:
           ## Outdated packages
 
           ```
-          ${{ steps.info.outputs.outdated == '' && 'No outdated packages' || steps.info.outputs.outdated }}
+          ${{ steps.info.outputs.outdated || 'No outdated packages' }}
           ```
 
           ## Environment
@@ -103,7 +104,3 @@ runs:
           * **Runner Arch:** ${{ runner.arch }}
           * **Node version:** ${{ inputs.node-version }}
       continue-on-error: true
-
-branding:
-  icon: 'git-branch'
-  color: 'blue'
