@@ -16,5 +16,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gabrielrufino/node-ci@main
+      - uses: actalog/node-ci@v3
 ```
