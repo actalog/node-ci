@@ -1,4 +1,9 @@
 name: '@actalog/node-ci'
+description: 'CI pipeline for Node.js: setup, conditional scripts, SonarCloud, artifacts, and PR reports.'
+author: Gabriel Rufino <contato@gabrielrufino.com>
+branding:
+  icon: refresh-ccw
+  color: green
 
 inputs:
   except:
