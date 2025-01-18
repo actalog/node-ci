@@ -8,7 +8,11 @@ Continuous Integration for Node.js projects
 name: CI
 
 on:
+  - pull_request
   - push
+
+permissions:
+  pull-requests: write
 
 jobs:
   node-ci:
