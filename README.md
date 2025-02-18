@@ -1,5 +1,8 @@
 # Node CI
 
+[![CI](https://github.com/actalog/node-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/actalog/node-ci/actions/workflows/ci.yml)
+[![CD](https://github.com/actalog/node-ci/actions/workflows/cd.yml/badge.svg)](https://github.com/actalog/node-ci/actions/workflows/cd.yml)
+
 Continuous Integration for Node.js projects
 
 ## Getting started
