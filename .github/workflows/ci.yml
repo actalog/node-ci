@@ -13,7 +13,7 @@ jobs:
     name: Upload action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/upload-artifact@v4
         with:
           name: action
@@ -24,7 +24,7 @@ jobs:
     needs:
       - upload-action
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
@@ -35,7 +35,7 @@ jobs:
     needs:
       - upload-action
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
@@ -51,7 +51,7 @@ jobs:
     needs:
       - upload-action
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
