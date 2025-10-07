@@ -18,12 +18,12 @@ inputs:
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - uses: actions/setup-node@v5
       with:
         node-version: ${{ inputs.node-version }}
-        cache: 'npm'
+        cache: npm
     - id: scripts
       run: |
         scripts=$(cat package.json | jq -c '.scripts | keys')
