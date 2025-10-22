@@ -29,15 +29,15 @@ runs:
         scripts=$(cat package.json | jq -c '.scripts | keys')
         echo "scripts=$scripts" >> $GITHUB_OUTPUT
       shell: bash
-    - run: npm ci || npm install
+    - run: time (npm ci || npm install)
       shell: bash
     - id: build
       if: ${{ contains(steps.scripts.outputs.scripts, 'build') && !contains(inputs.except, 'build') }}
-      run: npm run build
+      run: time npm run build
       shell: bash
     - id: lint
       if: ${{ contains(steps.scripts.outputs.scripts, 'lint') && !contains(inputs.except, 'lint') }}
-      run: npm run lint
+      run: time npm run lint
       shell: bash
     - id: test
       if: ${{ contains(steps.scripts.outputs.scripts, 'test') && !contains(inputs.except, 'test') }}
