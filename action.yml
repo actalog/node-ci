@@ -70,28 +70,28 @@ runs:
       run: |
         start=$(date +%s)
         ${{ steps.package-manager.outputs.install_cmd }}
-        echo "duration=$(( $(date +%s) - start ))s" >> $GITHUB_OUTPUT
+        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
       shell: bash
     - id: build
       if: ${{ contains(steps.scripts.outputs.scripts, 'build') && !contains(inputs.except, 'build') }}
       run: |
         start=$(date +%s)
         ${{ steps.package-manager.outputs.pkg_cmd }} run build
-        echo "duration=$(( $(date +%s) - start ))s" >> $GITHUB_OUTPUT
+        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
       shell: bash
     - id: lint
       if: ${{ contains(steps.scripts.outputs.scripts, 'lint') && !contains(inputs.except, 'lint') }}
       run: |
         start=$(date +%s)
         ${{ steps.package-manager.outputs.pkg_cmd }} run lint
-        echo "duration=$(( $(date +%s) - start ))s" >> $GITHUB_OUTPUT
+        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
       shell: bash
     - id: test
       if: ${{ contains(steps.scripts.outputs.scripts, 'test') && !contains(inputs.except, 'test') }}
       run: |
         start=$(date +%s)
         ${{ steps.package-manager.outputs.pkg_cmd }} test
-        echo "duration=$(( $(date +%s) - start ))s" >> $GITHUB_OUTPUT
+        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
       shell: bash
     - run: ${{ steps.package-manager.outputs.pkg_cmd }} run test:e2e
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:e2e') && !contains(inputs.except, 'test:e2e') }}
@@ -137,12 +137,20 @@ runs:
 
           ## Steps
 
-          | Step | Status | Duration |
+          | Step | Status | Duration (s) |
           | :--- | :--- | :--- |
           | **Install** | ${{ steps.install.outcome }} | ${{ steps.install.outputs.duration }} |
           | **Build**   | ${{ steps.build.outcome }}   | ${{ steps.build.outputs.duration || '-' }} |
           | **Lint**    | ${{ steps.lint.outcome }}    | ${{ steps.lint.outputs.duration || '-' }} |
           | **Test**    | ${{ steps.test.outcome }}    | ${{ steps.test.outputs.duration || '-' }} |
+
+          ```mermaid
+          pie title Step Durations (seconds)
+            "Install" : ${{ steps.install.outputs.duration || 0 }}
+            "Build"   : ${{ steps.build.outputs.duration || 0 }}
+            "Lint"    : ${{ steps.lint.outputs.duration || 0 }}
+            "Test"    : ${{ steps.test.outputs.duration || 0 }}
+          ```
 
           ## Statistics
 
