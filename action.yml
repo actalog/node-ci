@@ -63,7 +63,7 @@ runs:
       shell: bash
     - id: scripts
       run: |
-        scripts=$(cat package.json | jq -c '.scripts | keys')
+        scripts=$(jq -c '.scripts | keys' package.json)
         echo "scripts=$scripts" >> $GITHUB_OUTPUT
       shell: bash
     - id: install
