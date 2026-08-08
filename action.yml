@@ -67,32 +67,24 @@ runs:
         echo "scripts=$scripts" >> $GITHUB_OUTPUT
       shell: bash
     - id: install
-      run: |
-        start=$(date +%s)
-        ${{ steps.package-manager.outputs.install_cmd }}
-        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
-      shell: bash
+      uses: ./measure
+      with:
+        run: ${{ steps.package-manager.outputs.install_cmd }}
     - id: build
       if: ${{ contains(steps.scripts.outputs.scripts, 'build') && !contains(inputs.except, 'build') }}
-      run: |
-        start=$(date +%s)
-        ${{ steps.package-manager.outputs.pkg_cmd }} run build
-        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
-      shell: bash
+      uses: ./measure
+      with:
+        run: ${{ steps.package-manager.outputs.pkg_cmd }} run build
     - id: lint
       if: ${{ contains(steps.scripts.outputs.scripts, 'lint') && !contains(inputs.except, 'lint') }}
-      run: |
-        start=$(date +%s)
-        ${{ steps.package-manager.outputs.pkg_cmd }} run lint
-        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
-      shell: bash
+      uses: ./measure
+      with:
+        run: ${{ steps.package-manager.outputs.pkg_cmd }} run lint
     - id: test
       if: ${{ contains(steps.scripts.outputs.scripts, 'test') && !contains(inputs.except, 'test') }}
-      run: |
-        start=$(date +%s)
-        ${{ steps.package-manager.outputs.pkg_cmd }} test
-        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
-      shell: bash
+      uses: ./measure
+      with:
+        run: ${{ steps.package-manager.outputs.pkg_cmd }} test
     - run: ${{ steps.package-manager.outputs.pkg_cmd }} run test:e2e
       if: ${{ contains(steps.scripts.outputs.scripts, 'test:e2e') && !contains(inputs.except, 'test:e2e') }}
       shell: bash

@@ -1,0 +1,19 @@
+name: 'Measure'
+description: 'Runs a command and measures its duration'
+inputs:
+  run:
+    required: true
+    description: 'The command to run'
+outputs:
+  duration:
+    description: 'Duration of the command in seconds'
+    value: ${{ steps.run.outputs.duration }}
+runs:
+  using: composite
+  steps:
+    - id: run
+      run: |
+        start=$(date +%s)
+        ${{ inputs.run }}
+        echo "duration=$(( $(date +%s) - start ))" >> $GITHUB_OUTPUT
+      shell: bash
