@@ -17,7 +17,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: action
-          path: action.yml
+          path: |
+            action.yml
+            measure/
   test:
     name: 'Test: package manager ${{ matrix.package-manager }}'
     strategy:
