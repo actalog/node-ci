@@ -33,7 +33,10 @@ jobs:
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
-      - uses: ./action/
+        with:
+          name: action
+          path: .
+      - uses: ./
         with:
           package-manager: ${{ matrix.package-manager }}
   test-using-except:
@@ -46,7 +49,10 @@ jobs:
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
-      - uses: ./action/
+        with:
+          name: action
+          path: .
+      - uses: ./
         with:
           except: build
   test-in-different-operating-systems:
@@ -62,7 +68,10 @@ jobs:
         with:
           repository: gabrielrufino/node-template
       - uses: actions/download-artifact@v4
-      - uses: ./action/
+        with:
+          name: action
+          path: .
+      - uses: ./
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
